@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Gomoku"
+config/description="A simple 5-in-a-row 1v1 game that can be played on a 15x15 go board.
+A very basic gomoku app with basic rules.
+Made with Godot."
+config/version="1.0.0a"
+run/main_scene="uid://bsyhye204i2b3"
+config/features=PackedStringArray("4.4", "Mobile")
+boot_splash/bg_color=Color(1, 0.886275, 0.733333, 1)
+boot_splash/image="uid://dfrts4o2i612s"
+config/icon="uid://dpgrtrh33o3h4"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=960
+window/stretch/mode="canvas_items"
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
