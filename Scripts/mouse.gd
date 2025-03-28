@@ -19,6 +19,8 @@ var counters = []
 var ended = false
 @onready var couners_node = $"../Counters"
 var finished = false
+var restarted = false
+var mobile = false
 #endregion
 
 signal game_ended
@@ -180,6 +182,9 @@ func place_counter():
 
 func _ready():
 	game = create_2d_array(15, 15, 0)
+	if OS.has_feature("mobile"):
+		mobile = true
+	restart()
 
 func _process(_delta):
 	var mouse_position_x = get_viewport().get_mouse_position()[0]+GRID_SIZE/2
@@ -208,17 +213,21 @@ func _draw():
 				draw_circle(Vector2(0, 0), counter_radius, Color(255, 255, 255, 0.2))
 
 func _input(event):
-	if not finished:
-		if event is InputEventMouseButton:
-			if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-				var current_click_time = Time.get_ticks_msec()
-				if current_click_time - last_click_time > DOUBLE_CLICK_THRESHOLD * 1000:
-					place_counter()
-				last_click_time = current_click_time
-				queue_redraw()
-				couners_node.queue_redraw()
+	if not restarted:
+		if not finished:
+			if event is InputEventMouseButton:
+				if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+					var current_click_time = Time.get_ticks_msec()
+					if current_click_time - last_click_time > DOUBLE_CLICK_THRESHOLD * 1000:
+						place_counter()
+					last_click_time = current_click_time
+					queue_redraw()
+					couners_node.queue_redraw()
+	else:
+		restarted = false
 
-func _on_play_again_pressed():
+func restart():
+	await get_tree().create_timer(DOUBLE_CLICK_THRESHOLD).timeout
 	game = create_2d_array(15, 15, 0)
 	is_black = true
 	last_click_time = 0.0
@@ -229,4 +238,19 @@ func _on_play_again_pressed():
 	counters = []
 	ended = false
 	finished = false
+	couners_node.queue_redraw()
+	restarted = true
+
+func _on_play_again_pressed():
+	restart()
+
+
+func _on_button_pressed() -> void:
+	var last_x = (counters[-1][0][0]-32)/64
+	var last_y = (counters[-1][0][1]-32)/64
+	game[last_y][last_x] = 0
+	counters.pop_back()
+	is_black = not is_black
+	if mobile:
+		position = Vector2(-100, 100)
 	couners_node.queue_redraw()

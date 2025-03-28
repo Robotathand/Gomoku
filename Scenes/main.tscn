@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsyhye204i2b3"]
+[gd_scene load_steps=11 format=3 uid="uid://bsyhye204i2b3"]
 
 [ext_resource type="PackedScene" uid="uid://cqfoa4vp1cjuf" path="res://Scenes/board.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cb6n6tawxpwvx" path="res://Scripts/counters.gd" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://dn6skr57u7fla" path="res://Scripts/mouse.gd" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://i4c7aopoiux" path="res://Scripts/end_game.gd" id="4_jjvhh"]
 [ext_resource type="StyleBox" uid="uid://dfxu4hvvhic47" path="res://Assets/normal_button.tres" id="5_kry3j"]
+[ext_resource type="Texture2D" uid="uid://b0xbd2cnb8vyf" path="res://Assets/undo.svg" id="6_21xkr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
 bg_color = Color(0, 0, 0, 0.862745)
@@ -35,16 +36,17 @@ position = Vector2(32, 32)
 script = ExtResource("2_8gbba")
 
 [node name="Mouse" type="StaticBody2D" parent="."]
+position = Vector2(1144, 1064)
 script = ExtResource("2_bo1nx")
 counter_radius_factor = 2.15
 
 [node name="End game" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_jjvhh")
+metadata/_edit_use_anchors_ = true
 
 [node name="Black win" type="RichTextLabel" parent="End game"]
 visible = false
@@ -92,6 +94,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_21xkr")
 theme_override_styles/normal = ExtResource("5_kry3j")
 text = "Play Again!"
 
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(75, 75)
+offset_left = 960.0
+offset_top = 24.0
+offset_right = 1035.0
+offset_bottom = 99.0
+icon = ExtResource("6_21xkr")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="game_ended" from="Mouse" to="End game" method="_on_mouse_game_ended"]
 [connection signal="pressed" from="End game/Play again" to="Mouse" method="_on_play_again_pressed"]
 [connection signal="pressed" from="End game/Play again" to="End game" method="_on_play_again_pressed"]
+[connection signal="pressed" from="Button" to="Mouse" method="_on_button_pressed"]

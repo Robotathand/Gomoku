@@ -14,7 +14,7 @@ config/name="Gomoku"
 config/description="A simple 5-in-a-row 1v1 game that can be played on a 15x15 go board.
 A very basic gomoku app with basic rules.
 Made with Godot."
-config/version="1.0.0a"
+config/version="0.0.1"
 run/main_scene="uid://bsyhye204i2b3"
 config/features=PackedStringArray("4.4", "Mobile")
 boot_splash/bg_color=Color(1, 0.886275, 0.733333, 1)
@@ -23,7 +23,7 @@ config/icon="uid://dpgrtrh33o3h4"
 
 [display]
 
-window/size/viewport_width=960
+window/size/viewport_width=1056
 window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 
