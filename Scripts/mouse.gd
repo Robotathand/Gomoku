@@ -190,14 +190,18 @@ func _process(_delta):
 	var mouse_position_x = get_viewport().get_mouse_position()[0]+GRID_SIZE/2
 	var mouse_position_y = get_viewport().get_mouse_position()[1]+GRID_SIZE/2
 	
-	if (0 < mouse_position_x and mouse_position_x < 16 * GRID_SIZE) and (0 < mouse_position_y and mouse_position_y < 16 * GRID_SIZE):
+	if (0 < mouse_position_x and mouse_position_x < 15.5 * GRID_SIZE) and (0 < mouse_position_y and mouse_position_y < 16 * GRID_SIZE):
 		x_position = snapped(mouse_position_x, GRID_SIZE)-GRID_SIZE/2
 		y_position = snapped(mouse_position_y, GRID_SIZE)-GRID_SIZE/2
-		position.x = x_position
-		position.y = y_position
+
 		column = x_position/GRID_SIZE
 		row = y_position/GRID_SIZE
+		
+		position.x = x_position
+		position.y = y_position
+		
 		queue_redraw()
+		print(column)
 
 func _draw():
 	if not finished:
@@ -215,7 +219,7 @@ func _draw():
 func _input(event):
 	if not restarted:
 		if not finished:
-			if event is InputEventMouseButton:
+			if event is InputEventMouseButton and (get_viewport().get_mouse_position()[0]+GRID_SIZE/2 < 15.5 * GRID_SIZE):
 				if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 					var current_click_time = Time.get_ticks_msec()
 					if current_click_time - last_click_time > DOUBLE_CLICK_THRESHOLD * 1000:
@@ -244,8 +248,7 @@ func restart():
 func _on_play_again_pressed():
 	restart()
 
-
-func _on_button_pressed() -> void:
+func cancel_press():
 	var last_x = (counters[-1][0][0]-32)/64
 	var last_y = (counters[-1][0][1]-32)/64
 	game[last_y][last_x] = 0
@@ -254,3 +257,9 @@ func _on_button_pressed() -> void:
 	if mobile:
 		position = Vector2(-100, 100)
 	couners_node.queue_redraw()
+
+func _on_button_pressed():
+	cancel_press()
+
+func _on_no_pressed():
+	cancel_press()

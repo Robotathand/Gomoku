@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsyhye204i2b3"]
+[gd_scene load_steps=17 format=3 uid="uid://bsyhye204i2b3"]
 
 [ext_resource type="PackedScene" uid="uid://cqfoa4vp1cjuf" path="res://Scenes/board.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cb6n6tawxpwvx" path="res://Scripts/counters.gd" id="2_8gbba"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://i4c7aopoiux" path="res://Scripts/end_game.gd" id="4_jjvhh"]
 [ext_resource type="StyleBox" uid="uid://dfxu4hvvhic47" path="res://Assets/normal_button.tres" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://b0xbd2cnb8vyf" path="res://Assets/undo.svg" id="6_21xkr"]
+[ext_resource type="Texture2D" uid="uid://ovdk4qdejqp5" path="res://Assets/restart.svg" id="7_6bp64"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gbba"]
 bg_color = Color(0, 0, 0, 0.862745)
@@ -13,19 +14,34 @@ bg_color = Color(0, 0, 0, 0.862745)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjvhh"]
 bg_color = Color(1, 1, 1, 0.894118)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_344ge"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 0.917647)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ynf5e"]
+bg_color = Color(0.294118, 0.294118, 0.294118, 0.929412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hptm8"]
+bg_color = Color(0.415686, 0.415686, 0.415686, 0.894118)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1ilt"]
+bg_color = Color(0.0846899, 0.0846899, 0.0846899, 0.913725)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bp64"]
-bg_color = Color(0.212305, 0.212305, 0.212305, 0.878431)
+bg_color = Color(0.800491, 0.800491, 0.800491, 0.894118)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
-bg_color = Color(0.243137, 0.243137, 0.243137, 0.803922)
+bg_color = Color(0.601223, 0.601223, 0.601223, 0.894118)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bp64"]
+font_size = 27
 
 [node name="Main" type="Node2D"]
 
@@ -88,13 +104,87 @@ offset_right = 641.0
 offset_bottom = 784.5
 tooltip_text = "Restart the game!"
 theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxFlat_344ge")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ynf5e")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hptm8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_d1ilt")
+text = "Play Again!"
+
+[node name="End request" type="ColorRect" parent="End game"]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 285.0
+offset_right = 780.0
+offset_bottom = 585.0
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Yes" type="Button" parent="End game/End request"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 163.0
+offset_right = 252.0
+offset_bottom = 260.0
+tooltip_text = "Restart the game!"
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
 theme_override_styles/focus = ExtResource("5_kry3j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_21xkr")
 theme_override_styles/normal = ExtResource("5_kry3j")
-text = "Play Again!"
+text = "Yes"
 
-[node name="Button" type="Button" parent="."]
+[node name="No" type="Button" parent="End game/End request"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 163.0
+offset_right = 548.0
+offset_bottom = 260.0
+tooltip_text = "Cancel"
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = ExtResource("5_kry3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_21xkr")
+theme_override_styles/normal = ExtResource("5_kry3j")
+text = "No"
+
+[node name="End request label" type="Label" parent="End game/End request"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 51.0
+offset_right = 596.0
+offset_bottom = 99.0
+text = "Are you sure you want to end the game?"
+label_settings = SubResource("LabelSettings_6bp64")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button undo" type="Button" parent="."]
 custom_minimum_size = Vector2(75, 75)
 offset_left = 960.0
 offset_top = 24.0
@@ -104,7 +194,22 @@ icon = ExtResource("6_21xkr")
 icon_alignment = 1
 expand_icon = true
 
+[node name="Button restart" type="Button" parent="."]
+custom_minimum_size = Vector2(75, 75)
+offset_left = 960.0
+offset_top = 120.0
+offset_right = 1035.0
+offset_bottom = 195.0
+icon = ExtResource("7_6bp64")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="game_ended" from="Mouse" to="End game" method="_on_mouse_game_ended"]
 [connection signal="pressed" from="End game/Play again" to="Mouse" method="_on_play_again_pressed"]
 [connection signal="pressed" from="End game/Play again" to="End game" method="_on_play_again_pressed"]
-[connection signal="pressed" from="Button" to="Mouse" method="_on_button_pressed"]
+[connection signal="pressed" from="End game/End request/Yes" to="Mouse" method="_on_play_again_pressed"]
+[connection signal="pressed" from="End game/End request/Yes" to="End game" method="_on_yes_pressed"]
+[connection signal="pressed" from="End game/End request/No" to="Mouse" method="_on_no_pressed"]
+[connection signal="pressed" from="End game/End request/No" to="End game" method="_on_no_pressed"]
+[connection signal="pressed" from="Button undo" to="Mouse" method="_on_button_pressed"]
+[connection signal="pressed" from="Button restart" to="End game" method="_on_button_restart_pressed"]

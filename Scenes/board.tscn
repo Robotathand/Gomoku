@@ -26,6 +26,5 @@ gradient = ExtResource("1_tnbny")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
-position = Vector2(16, 0)
 color = Color(1, 0.884792, 0.73184, 1)
-polygon = PackedVector2Array(-32, -32, 1008, -32, 1008, 928, -32, 928)
+polygon = PackedVector2Array(-32, -32, 1024, -32, 1024, 928, -32, 928)
